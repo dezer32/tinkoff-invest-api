@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"fmt"
 	"github.com/dezer32/tinkoff-invest-api/configs"
-	"github.com/dezer32/tinkoff-invest-api/internal/generated/investapi"
 	"github.com/dezer32/tinkoff-invest-api/internal/structs"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -12,11 +11,7 @@ import (
 
 type Client struct {
 	Connection *grpc.ClientConn
-	Services   *services
-}
-
-type services struct {
-	Instruments investapi.InstrumentsServiceClient
+	Services   *Services
 }
 
 func New(cfg *configs.Config) (client *Client, err error) {
@@ -37,9 +32,7 @@ func New(cfg *configs.Config) (client *Client, err error) {
 
 	client = &Client{
 		Connection: conn,
-		Services: &services{
-			Instruments: investapi.NewInstrumentsServiceClient(conn),
-		},
+		Services:   NewServices(conn),
 	}
 
 	return

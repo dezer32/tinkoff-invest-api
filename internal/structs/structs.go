@@ -4,6 +4,10 @@ import (
 	"time"
 )
 
+type SharesRequest struct {
+	InstrumentStatus int8
+}
+
 type SharesResponse struct {
 	Instruments []Share `json:"instruments"`
 }

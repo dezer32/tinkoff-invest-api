@@ -2,7 +2,6 @@ package structs
 
 import (
 	"encoding/json"
-	"reflect"
 )
 
 //type StructMapper interface {
@@ -21,19 +20,13 @@ func NewStructMapper() *StructMapper {
 	}
 }
 
-func (s *StructMapper) Map(dirty interface{}) (res interface{}, err error) {
-	t := reflect.TypeOf(dirty)
-	res, ok := s.Rules[t.String()]
-	if ok != true {
-		return dirty, nil
-	}
-
+func (s *StructMapper) Map(dirty any, res any) (err error) {
 	dirtyJson, err := json.Marshal(dirty)
 	if err != nil {
 		return
 	}
 
-	err = json.Unmarshal(dirtyJson, &res)
+	err = json.Unmarshal(dirtyJson, res)
 	if err != nil {
 		return
 	}

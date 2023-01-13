@@ -1,9 +1,7 @@
 package main
 
 import (
-	"context"
 	"github.com/dezer32/tinkoff-invest-api/internal/config"
-	"github.com/dezer32/tinkoff-invest-api/internal/generated/investapi"
 	"github.com/dezer32/tinkoff-invest-api/internal/structs"
 	"github.com/dezer32/tinkoff-invest-api/pkg/client"
 	"log"
@@ -20,19 +18,11 @@ func main() {
 		log.Fatalf("%s : when connect to api")
 	}
 	//
-	req := &investapi.InstrumentsRequest{
-		InstrumentStatus: 0,
-	}
-	resp, err := c.Services.Instruments.Shares(context.Background(), req)
+	req := &structs.SharesRequest{InstrumentStatus: 0}
+	resp, err := c.Services.Instruments.Shares(req)
 	if err != nil {
 		log.Fatalf("%s : when load instruments", err)
 	}
 
-	mapper := structs.NewStructMapper()
-	mapped, err := mapper.Map(resp)
-	if err != nil {
-		log.Fatalf("%s : when mapped", err)
-	}
-
-	log.Printf("Result:\n%v", mapped)
+	log.Printf("Result:\n%v", resp)
 }
