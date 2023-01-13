@@ -16,6 +16,7 @@ type Client struct {
 
 type services struct {
 	Instruments investapi.InstrumentsServiceClient
+	MarketData  investapi.MarketDataServiceClient
 }
 
 func New(cfg *configs.Config) (client *Client, err error) {
@@ -38,6 +39,7 @@ func New(cfg *configs.Config) (client *Client, err error) {
 		Connection: conn,
 		Services: &services{
 			Instruments: investapi.NewInstrumentsServiceClient(conn),
+			MarketData:  investapi.NewMarketDataServiceClient(conn),
 		},
 	}
 
