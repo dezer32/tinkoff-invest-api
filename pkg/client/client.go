@@ -4,14 +4,18 @@ import (
 	"crypto/tls"
 	"fmt"
 	"github.com/dezer32/tinkoff-invest-api/configs"
-	"github.com/dezer32/tinkoff-invest-api/internal/structs"
+	"github.com/dezer32/tinkoff-invest-api/internal/generated/investapi"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
 
 type Client struct {
 	Connection *grpc.ClientConn
-	Services   *Services
+	Services   *services
+}
+
+type services struct {
+	Instruments investapi.InstrumentsServiceClient
 }
 
 func New(cfg *configs.Config) (client *Client, err error) {
@@ -19,7 +23,7 @@ func New(cfg *configs.Config) (client *Client, err error) {
 		grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{
 			ServerName: cfg.Client.Endpoint.URL,
 		})),
-		grpc.WithPerRPCCredentials(structs.TokenAuth{
+		grpc.WithPerRPCCredentials(TokenAuth{
 			Token: cfg.Client.Token,
 		}),
 	}
@@ -32,7 +36,9 @@ func New(cfg *configs.Config) (client *Client, err error) {
 
 	client = &Client{
 		Connection: conn,
-		Services:   NewServices(conn),
+		Services: &services{
+			Instruments: investapi.NewInstrumentsServiceClient(conn),
+		},
 	}
 
 	return

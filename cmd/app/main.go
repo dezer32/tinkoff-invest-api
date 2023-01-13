@@ -1,8 +1,9 @@
 package main
 
 import (
+	"context"
 	"github.com/dezer32/tinkoff-invest-api/internal/config"
-	"github.com/dezer32/tinkoff-invest-api/internal/structs"
+	"github.com/dezer32/tinkoff-invest-api/internal/generated/investapi"
 	"github.com/dezer32/tinkoff-invest-api/pkg/client"
 	"log"
 )
@@ -18,8 +19,10 @@ func main() {
 		log.Fatalf("%s : when connect to api")
 	}
 	//
-	req := &structs.SharesRequest{InstrumentStatus: 0}
-	resp, err := c.Services.Instruments.Shares(req)
+	req := &investapi.InstrumentsRequest{
+		InstrumentStatus: 0,
+	}
+	resp, err := c.Services.Instruments.Shares(context.Background(), req)
 	if err != nil {
 		log.Fatalf("%s : when load instruments", err)
 	}
