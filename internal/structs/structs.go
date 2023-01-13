@@ -57,10 +57,10 @@ type Share struct {
 type MoneyValue struct {
 	Nano     int    `json:"nano"`
 	Currency string `json:"currency"`
-	Units    string `json:"units"`
+	Units    int    `json:"units"`
 }
 
 type Quotation struct {
-	Nano  int    `json:"nano"`
-	Units string `json:"units"`
+	Nano  int `json:"nano"`
+	Units int `json:"units"`
 }
