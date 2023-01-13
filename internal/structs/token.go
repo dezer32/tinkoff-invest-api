@@ -1,4 +1,4 @@
-package invest_client
+package structs
 
 import "context"
 

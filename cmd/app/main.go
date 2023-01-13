@@ -3,8 +3,9 @@ package main
 import (
 	"context"
 	"github.com/dezer32/tinkoff-invest-api/internal/config"
-	invest_client2 "github.com/dezer32/tinkoff-invest-api/internal/invest_client"
-	"github.com/dezer32/tinkoff-invest-api/pkg/invest_client"
+	"github.com/dezer32/tinkoff-invest-api/internal/generated/investapi"
+	"github.com/dezer32/tinkoff-invest-api/internal/structs"
+	"github.com/dezer32/tinkoff-invest-api/pkg/client"
 	"log"
 )
 
@@ -14,16 +15,24 @@ func main() {
 		log.Fatalf("%s : when load configs", err)
 	}
 
-	c, err := invest_client.New(cfg)
+	c, err := client.New(cfg)
 	if err != nil {
 		log.Fatalf("%s : when connect to api")
 	}
-
-	req := &invest_client2.SharesRequest{InstrumentStatus: invest_client2.InstrumentStatusAll}
-	resp, err := c.InstrumentsClient.Shares(context.Background(), req)
+	//
+	req := &investapi.InstrumentsRequest{
+		InstrumentStatus: 0,
+	}
+	resp, err := c.Services.Instruments.Shares(context.Background(), req)
 	if err != nil {
 		log.Fatalf("%s : when load instruments", err)
 	}
 
-	log.Printf("Result:\n%v", resp)
+	mapper := structs.NewStructMapper()
+	mapped, err := mapper.Map(resp)
+	if err != nil {
+		log.Fatalf("%s : when mapped", err)
+	}
+
+	log.Printf("Result:\n%v", mapped)
 }

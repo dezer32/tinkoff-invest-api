@@ -1,23 +1,11 @@
-package invest_client
+package structs
 
 import (
 	"time"
 )
 
-type SharesRequest struct {
-	InstrumentStatus InstrumentStatus `json:"instrumentStatus"`
-}
-
-type InstrumentStatus string
-
-const (
-	InstrumentStatusUnspecified InstrumentStatus = "INSTRUMENT_STATUS_UNSPECIFIED"
-	InstrumentStatusBase        InstrumentStatus = "INSTRUMENT_STATUS_BASE"
-	InstrumentStatusAll         InstrumentStatus = "INSTRUMENT_STATUS_ALL"
-)
-
 type SharesResponse struct {
-	Instruments []Share `json:"invest_client"`
+	Instruments []Share `json:"instruments"`
 }
 
 type Share struct {
