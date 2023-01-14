@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/dezer32/go-config/pkg/config"
 	"github.com/dezer32/tinkoff-invest-api/configs"
 	"github.com/dezer32/tinkoff-invest-api/pkg/client"
-	"github.com/dezer32/tinkoff-invest-api/pkg/config"
 	"github.com/dezer32/tinkoff-invest-api/pkg/generated/investapi"
 	"log"
 	"os"
@@ -24,7 +24,8 @@ func init() {
 		"configs/client.yaml",
 		"configs/time.yaml",
 	}
-	cfg, err = config.Load(configFiles...)
+	cfg = new(configs.Config)
+	err = config.ConfigLoader(cfg, configFiles...)
 	if err != nil {
 		log.Fatalf("%s : when load configs", err)
 	}
@@ -58,6 +59,6 @@ func main() {
 	}
 
 	data, _ := json.Marshal(res)
-	fileName := fmt.Sprintf("figi.%d.txt", time.Now().Unix())
+	fileName := fmt.Sprintf("figi.%d.json", time.Now().Unix())
 	os.WriteFile(fileName, data, os.ModePerm)
 }
