@@ -1,5 +1,7 @@
 github.com/dezer32/go-config v0.0.0-20230114111509-969151a2c8be h1:PFShrhUeSiulVdfbMaeTH83fn7uK7J8ZhLV6bR1kXCQ=
 github.com/dezer32/go-config v0.0.0-20230114111509-969151a2c8be/go.mod h1:axMpG/X3FRCi9u9TLGbH7hwE5QLodHTf1IEYW+0Xsyk=
+github.com/dezer32/go-config v0.0.5 h1:w5mkCqizSg1blf3RMfjWdGzwBIqEdAWuwauufaJNAlI=
+github.com/dezer32/go-config v0.0.5/go.mod h1:axMpG/X3FRCi9u9TLGbH7hwE5QLodHTf1IEYW+0Xsyk=
 github.com/go-yaml/yaml v2.1.0+incompatible h1:RYi2hDdss1u4YE7GwixGzWwVo47T8UQwnTLB6vQiq+o=
 github.com/go-yaml/yaml v2.1.0+incompatible/go.mod h1:w2MrLa16VYP0jy6N7M5kHaCkaLENm+P+Tv+MfurjSw0=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=

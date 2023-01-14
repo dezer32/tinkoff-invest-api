@@ -8,7 +8,7 @@ require (
 )
 
 require (
-	github.com/dezer32/go-config v0.0.0-20230114111509-969151a2c8be // indirect
+	github.com/dezer32/go-config v0.0.5 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	golang.org/x/net v0.4.0 // indirect
 	golang.org/x/sys v0.3.0 // indirect
