@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"github.com/dezer32/tinkoff-invest-api/configs"
-	"github.com/dezer32/tinkoff-invest-api/internal/generated/investapi"
+	"github.com/dezer32/tinkoff-invest-api/pkg/generated/investapi"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )

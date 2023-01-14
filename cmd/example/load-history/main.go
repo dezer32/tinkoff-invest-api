@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/dezer32/tinkoff-invest-api/configs"
-	"github.com/dezer32/tinkoff-invest-api/internal/config"
-	"github.com/dezer32/tinkoff-invest-api/internal/generated/investapi"
 	"github.com/dezer32/tinkoff-invest-api/pkg/client"
+	"github.com/dezer32/tinkoff-invest-api/pkg/config"
+	investapi2 "github.com/dezer32/tinkoff-invest-api/pkg/generated/investapi"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"log"
 	"math"
@@ -44,7 +44,7 @@ func init() {
 }
 
 func main() {
-	req := new(investapi.GetCandlesRequest)
+	req := new(investapi2.GetCandlesRequest)
 	req.Figi = "BBG000BBQCY0"
 	now := time.Now()
 	startDay := time.Date(now.Year(), now.Month(), now.Day()-1, 0, 0, 0, 0, location)
@@ -85,7 +85,7 @@ func main() {
 	os.WriteFile(fileName, data, os.ModePerm)
 }
 
-func getFloat(quotation *investapi.Quotation) float64 {
+func getFloat(quotation *investapi2.Quotation) float64 {
 	if quotation.Nano <= 0 {
 		return float64(quotation.Units)
 	}
