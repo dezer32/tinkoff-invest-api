@@ -8,9 +8,9 @@ import (
 	"github.com/dezer32/tinkoff-invest-api/pkg/client"
 	"github.com/dezer32/tinkoff-invest-api/pkg/config"
 	investapi2 "github.com/dezer32/tinkoff-invest-api/pkg/generated/investapi"
+	"github.com/dezer32/tinkoff-invest-api/pkg/helpers"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"log"
-	"math"
 	"os"
 	"time"
 )
@@ -69,10 +69,10 @@ func main() {
 
 	for _, candle := range candles.GetCandles() {
 		res[candle.Time.AsTime().String()] = ResCandle{
-			Open:   getFloat(candle.Open),
-			Close:  getFloat(candle.Close),
-			High:   getFloat(candle.High),
-			Low:    getFloat(candle.Low),
+			Open:   helpers.ConvertQuotation(candle.Open),
+			Close:  helpers.ConvertQuotation(candle.Close),
+			High:   helpers.ConvertQuotation(candle.High),
+			Low:    helpers.ConvertQuotation(candle.Low),
 			Volume: candle.Volume,
 		}
 	}
@@ -83,15 +83,4 @@ func main() {
 	}
 	fileName := fmt.Sprintf("candles.parsed.%s.%d.json", req.Figi, time.Now().Unix())
 	os.WriteFile(fileName, data, os.ModePerm)
-}
-
-func getFloat(quotation *investapi2.Quotation) float64 {
-	if quotation.Nano <= 0 {
-		return float64(quotation.Units)
-	}
-
-	lenNano := int(math.Ceil(math.Log10(float64(quotation.Nano))))
-	lenZero := int64(math.Pow10(lenNano))
-
-	return float64(quotation.Units*lenZero+int64(quotation.Nano)) / float64(lenZero)
 }
