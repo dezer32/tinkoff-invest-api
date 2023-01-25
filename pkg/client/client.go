@@ -3,13 +3,17 @@ package client
 import (
 	"crypto/tls"
 	"fmt"
-	"github.com/dezer32/tinkoff-invest-api/configs"
-	"github.com/dezer32/tinkoff-invest-api/pkg/generated/investapi"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+
+	"github.com/dezer32/tinkoff-invest-api/internal/generated/investapi"
 )
 
 type Client struct {
+	token string
+	Url   string
+
 	Connection *grpc.ClientConn
 	Services   *services
 }
@@ -19,23 +23,32 @@ type services struct {
 	MarketData  investapi.MarketDataServiceClient
 }
 
-func New(cfg *configs.Config) (client *Client, err error) {
+func New(token, url string) (client *Client, err error) {
 	opts := []grpc.DialOption{
-		grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{
-			ServerName: cfg.Client.Endpoint.URL,
-		})),
-		grpc.WithPerRPCCredentials(TokenAuth{
-			Token: cfg.Client.Token,
-		}),
+		grpc.WithTransportCredentials(
+			credentials.NewTLS(
+				&tls.Config{
+					ServerName: url,
+				},
+			),
+		),
+		grpc.WithPerRPCCredentials(
+			TokenAuth{
+				Token: token,
+			},
+		),
 	}
 
-	endpoint := fmt.Sprintf("%s:%d", cfg.Client.Endpoint.URL, cfg.Client.Endpoint.Port)
+	endpoint := fmt.Sprintf("%s:443", url)
 	conn, err := grpc.Dial(endpoint, opts...)
 	if err != nil {
 		return
 	}
 
 	client = &Client{
+		token: token,
+		Url:   url,
+
 		Connection: conn,
 		Services: &services{
 			Instruments: investapi.NewInstrumentsServiceClient(conn),

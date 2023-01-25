@@ -1,5 +1,0 @@
-client:
-  token: "t.CDlIOGov59rZtOUzRZsyOlkTekLp0DBAuTObh-LVwoVYTFzRsrQbcEEGEdIsa2uvMFfL1g-anUH0TAto7i0bIA"
-  endpoint:
-    url: "sandbox-invest-public-api.tinkoff.ru"
-    port: 443

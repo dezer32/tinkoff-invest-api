@@ -7,10 +7,11 @@
 package investapi
 
 import (
-	context "context"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
+	"context"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -25,15 +26,28 @@ type MarketDataServiceClient interface {
 	// Метод запроса исторических свечей по инструменту.
 	GetCandles(ctx context.Context, in *GetCandlesRequest, opts ...grpc.CallOption) (*GetCandlesResponse, error)
 	// Метод запроса цен последних сделок по инструментам.
-	GetLastPrices(ctx context.Context, in *GetLastPricesRequest, opts ...grpc.CallOption) (*GetLastPricesResponse, error)
+	GetLastPrices(ctx context.Context, in *GetLastPricesRequest, opts ...grpc.CallOption) (
+		*GetLastPricesResponse,
+		error,
+	)
 	// Метод получения стакана по инструменту.
 	GetOrderBook(ctx context.Context, in *GetOrderBookRequest, opts ...grpc.CallOption) (*GetOrderBookResponse, error)
 	// Метод запроса статуса торгов по инструментам.
-	GetTradingStatus(ctx context.Context, in *GetTradingStatusRequest, opts ...grpc.CallOption) (*GetTradingStatusResponse, error)
+	GetTradingStatus(
+		ctx context.Context,
+		in *GetTradingStatusRequest,
+		opts ...grpc.CallOption,
+	) (*GetTradingStatusResponse, error)
 	// Метод запроса обезличенных сделок за последний час.
-	GetLastTrades(ctx context.Context, in *GetLastTradesRequest, opts ...grpc.CallOption) (*GetLastTradesResponse, error)
+	GetLastTrades(ctx context.Context, in *GetLastTradesRequest, opts ...grpc.CallOption) (
+		*GetLastTradesResponse,
+		error,
+	)
 	// Метод запроса цен закрытия торговой сессии по инструментам.
-	GetClosePrices(ctx context.Context, in *GetClosePricesRequest, opts ...grpc.CallOption) (*GetClosePricesResponse, error)
+	GetClosePrices(ctx context.Context, in *GetClosePricesRequest, opts ...grpc.CallOption) (
+		*GetClosePricesResponse,
+		error,
+	)
 }
 
 type marketDataServiceClient struct {
@@ -44,7 +58,11 @@ func NewMarketDataServiceClient(cc grpc.ClientConnInterface) MarketDataServiceCl
 	return &marketDataServiceClient{cc}
 }
 
-func (c *marketDataServiceClient) GetCandles(ctx context.Context, in *GetCandlesRequest, opts ...grpc.CallOption) (*GetCandlesResponse, error) {
+func (c *marketDataServiceClient) GetCandles(
+	ctx context.Context,
+	in *GetCandlesRequest,
+	opts ...grpc.CallOption,
+) (*GetCandlesResponse, error) {
 	out := new(GetCandlesResponse)
 	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.MarketDataService/GetCandles", in, out, opts...)
 	if err != nil {
@@ -53,7 +71,11 @@ func (c *marketDataServiceClient) GetCandles(ctx context.Context, in *GetCandles
 	return out, nil
 }
 
-func (c *marketDataServiceClient) GetLastPrices(ctx context.Context, in *GetLastPricesRequest, opts ...grpc.CallOption) (*GetLastPricesResponse, error) {
+func (c *marketDataServiceClient) GetLastPrices(
+	ctx context.Context,
+	in *GetLastPricesRequest,
+	opts ...grpc.CallOption,
+) (*GetLastPricesResponse, error) {
 	out := new(GetLastPricesResponse)
 	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.MarketDataService/GetLastPrices", in, out, opts...)
 	if err != nil {
@@ -62,7 +84,11 @@ func (c *marketDataServiceClient) GetLastPrices(ctx context.Context, in *GetLast
 	return out, nil
 }
 
-func (c *marketDataServiceClient) GetOrderBook(ctx context.Context, in *GetOrderBookRequest, opts ...grpc.CallOption) (*GetOrderBookResponse, error) {
+func (c *marketDataServiceClient) GetOrderBook(
+	ctx context.Context,
+	in *GetOrderBookRequest,
+	opts ...grpc.CallOption,
+) (*GetOrderBookResponse, error) {
 	out := new(GetOrderBookResponse)
 	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.MarketDataService/GetOrderBook", in, out, opts...)
 	if err != nil {
@@ -71,16 +97,30 @@ func (c *marketDataServiceClient) GetOrderBook(ctx context.Context, in *GetOrder
 	return out, nil
 }
 
-func (c *marketDataServiceClient) GetTradingStatus(ctx context.Context, in *GetTradingStatusRequest, opts ...grpc.CallOption) (*GetTradingStatusResponse, error) {
+func (c *marketDataServiceClient) GetTradingStatus(
+	ctx context.Context,
+	in *GetTradingStatusRequest,
+	opts ...grpc.CallOption,
+) (*GetTradingStatusResponse, error) {
 	out := new(GetTradingStatusResponse)
-	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.MarketDataService/GetTradingStatus", in, out, opts...)
+	err := c.cc.Invoke(
+		ctx,
+		"/tinkoff.public.invest.api.contract.v1.MarketDataService/GetTradingStatus",
+		in,
+		out,
+		opts...,
+	)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *marketDataServiceClient) GetLastTrades(ctx context.Context, in *GetLastTradesRequest, opts ...grpc.CallOption) (*GetLastTradesResponse, error) {
+func (c *marketDataServiceClient) GetLastTrades(
+	ctx context.Context,
+	in *GetLastTradesRequest,
+	opts ...grpc.CallOption,
+) (*GetLastTradesResponse, error) {
 	out := new(GetLastTradesResponse)
 	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.MarketDataService/GetLastTrades", in, out, opts...)
 	if err != nil {
@@ -89,7 +129,11 @@ func (c *marketDataServiceClient) GetLastTrades(ctx context.Context, in *GetLast
 	return out, nil
 }
 
-func (c *marketDataServiceClient) GetClosePrices(ctx context.Context, in *GetClosePricesRequest, opts ...grpc.CallOption) (*GetClosePricesResponse, error) {
+func (c *marketDataServiceClient) GetClosePrices(
+	ctx context.Context,
+	in *GetClosePricesRequest,
+	opts ...grpc.CallOption,
+) (*GetClosePricesResponse, error) {
 	out := new(GetClosePricesResponse)
 	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.MarketDataService/GetClosePrices", in, out, opts...)
 	if err != nil {
@@ -121,22 +165,40 @@ type MarketDataServiceServer interface {
 type UnimplementedMarketDataServiceServer struct {
 }
 
-func (UnimplementedMarketDataServiceServer) GetCandles(context.Context, *GetCandlesRequest) (*GetCandlesResponse, error) {
+func (UnimplementedMarketDataServiceServer) GetCandles(context.Context, *GetCandlesRequest) (
+	*GetCandlesResponse,
+	error,
+) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCandles not implemented")
 }
-func (UnimplementedMarketDataServiceServer) GetLastPrices(context.Context, *GetLastPricesRequest) (*GetLastPricesResponse, error) {
+func (UnimplementedMarketDataServiceServer) GetLastPrices(
+	context.Context,
+	*GetLastPricesRequest,
+) (*GetLastPricesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLastPrices not implemented")
 }
-func (UnimplementedMarketDataServiceServer) GetOrderBook(context.Context, *GetOrderBookRequest) (*GetOrderBookResponse, error) {
+func (UnimplementedMarketDataServiceServer) GetOrderBook(context.Context, *GetOrderBookRequest) (
+	*GetOrderBookResponse,
+	error,
+) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrderBook not implemented")
 }
-func (UnimplementedMarketDataServiceServer) GetTradingStatus(context.Context, *GetTradingStatusRequest) (*GetTradingStatusResponse, error) {
+func (UnimplementedMarketDataServiceServer) GetTradingStatus(
+	context.Context,
+	*GetTradingStatusRequest,
+) (*GetTradingStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTradingStatus not implemented")
 }
-func (UnimplementedMarketDataServiceServer) GetLastTrades(context.Context, *GetLastTradesRequest) (*GetLastTradesResponse, error) {
+func (UnimplementedMarketDataServiceServer) GetLastTrades(
+	context.Context,
+	*GetLastTradesRequest,
+) (*GetLastTradesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLastTrades not implemented")
 }
-func (UnimplementedMarketDataServiceServer) GetClosePrices(context.Context, *GetClosePricesRequest) (*GetClosePricesResponse, error) {
+func (UnimplementedMarketDataServiceServer) GetClosePrices(
+	context.Context,
+	*GetClosePricesRequest,
+) (*GetClosePricesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClosePrices not implemented")
 }
 func (UnimplementedMarketDataServiceServer) mustEmbedUnimplementedMarketDataServiceServer() {}
@@ -152,7 +214,12 @@ func RegisterMarketDataServiceServer(s grpc.ServiceRegistrar, srv MarketDataServ
 	s.RegisterService(&MarketDataService_ServiceDesc, srv)
 }
 
-func _MarketDataService_GetCandles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MarketDataService_GetCandles_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(GetCandlesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -170,7 +237,12 @@ func _MarketDataService_GetCandles_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MarketDataService_GetLastPrices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MarketDataService_GetLastPrices_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(GetLastPricesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -188,7 +260,12 @@ func _MarketDataService_GetLastPrices_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MarketDataService_GetOrderBook_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MarketDataService_GetOrderBook_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(GetOrderBookRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -206,7 +283,12 @@ func _MarketDataService_GetOrderBook_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MarketDataService_GetTradingStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MarketDataService_GetTradingStatus_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(GetTradingStatusRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -224,7 +306,12 @@ func _MarketDataService_GetTradingStatus_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MarketDataService_GetLastTrades_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MarketDataService_GetLastTrades_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(GetLastTradesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -242,7 +329,12 @@ func _MarketDataService_GetLastTrades_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MarketDataService_GetClosePrices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MarketDataService_GetClosePrices_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(GetClosePricesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -301,9 +393,16 @@ var MarketDataService_ServiceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MarketDataStreamServiceClient interface {
 	// Bi-directional стрим предоставления биржевой информации.
-	MarketDataStream(ctx context.Context, opts ...grpc.CallOption) (MarketDataStreamService_MarketDataStreamClient, error)
+	MarketDataStream(ctx context.Context, opts ...grpc.CallOption) (
+		MarketDataStreamService_MarketDataStreamClient,
+		error,
+	)
 	// Server-side стрим предоставления биржевой информации.
-	MarketDataServerSideStream(ctx context.Context, in *MarketDataServerSideStreamRequest, opts ...grpc.CallOption) (MarketDataStreamService_MarketDataServerSideStreamClient, error)
+	MarketDataServerSideStream(
+		ctx context.Context,
+		in *MarketDataServerSideStreamRequest,
+		opts ...grpc.CallOption,
+	) (MarketDataStreamService_MarketDataServerSideStreamClient, error)
 }
 
 type marketDataStreamServiceClient struct {
@@ -314,8 +413,16 @@ func NewMarketDataStreamServiceClient(cc grpc.ClientConnInterface) MarketDataStr
 	return &marketDataStreamServiceClient{cc}
 }
 
-func (c *marketDataStreamServiceClient) MarketDataStream(ctx context.Context, opts ...grpc.CallOption) (MarketDataStreamService_MarketDataStreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &MarketDataStreamService_ServiceDesc.Streams[0], "/tinkoff.public.invest.api.contract.v1.MarketDataStreamService/MarketDataStream", opts...)
+func (c *marketDataStreamServiceClient) MarketDataStream(
+	ctx context.Context,
+	opts ...grpc.CallOption,
+) (MarketDataStreamService_MarketDataStreamClient, error) {
+	stream, err := c.cc.NewStream(
+		ctx,
+		&MarketDataStreamService_ServiceDesc.Streams[0],
+		"/tinkoff.public.invest.api.contract.v1.MarketDataStreamService/MarketDataStream",
+		opts...,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -345,8 +452,17 @@ func (x *marketDataStreamServiceMarketDataStreamClient) Recv() (*MarketDataRespo
 	return m, nil
 }
 
-func (c *marketDataStreamServiceClient) MarketDataServerSideStream(ctx context.Context, in *MarketDataServerSideStreamRequest, opts ...grpc.CallOption) (MarketDataStreamService_MarketDataServerSideStreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &MarketDataStreamService_ServiceDesc.Streams[1], "/tinkoff.public.invest.api.contract.v1.MarketDataStreamService/MarketDataServerSideStream", opts...)
+func (c *marketDataStreamServiceClient) MarketDataServerSideStream(
+	ctx context.Context,
+	in *MarketDataServerSideStreamRequest,
+	opts ...grpc.CallOption,
+) (MarketDataStreamService_MarketDataServerSideStreamClient, error) {
+	stream, err := c.cc.NewStream(
+		ctx,
+		&MarketDataStreamService_ServiceDesc.Streams[1],
+		"/tinkoff.public.invest.api.contract.v1.MarketDataStreamService/MarketDataServerSideStream",
+		opts...,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -384,7 +500,10 @@ type MarketDataStreamServiceServer interface {
 	// Bi-directional стрим предоставления биржевой информации.
 	MarketDataStream(MarketDataStreamService_MarketDataStreamServer) error
 	// Server-side стрим предоставления биржевой информации.
-	MarketDataServerSideStream(*MarketDataServerSideStreamRequest, MarketDataStreamService_MarketDataServerSideStreamServer) error
+	MarketDataServerSideStream(
+		*MarketDataServerSideStreamRequest,
+		MarketDataStreamService_MarketDataServerSideStreamServer,
+	) error
 	mustEmbedUnimplementedMarketDataStreamServiceServer()
 }
 
@@ -395,7 +514,10 @@ type UnimplementedMarketDataStreamServiceServer struct {
 func (UnimplementedMarketDataStreamServiceServer) MarketDataStream(MarketDataStreamService_MarketDataStreamServer) error {
 	return status.Errorf(codes.Unimplemented, "method MarketDataStream not implemented")
 }
-func (UnimplementedMarketDataStreamServiceServer) MarketDataServerSideStream(*MarketDataServerSideStreamRequest, MarketDataStreamService_MarketDataServerSideStreamServer) error {
+func (UnimplementedMarketDataStreamServiceServer) MarketDataServerSideStream(
+	*MarketDataServerSideStreamRequest,
+	MarketDataStreamService_MarketDataServerSideStreamServer,
+) error {
 	return status.Errorf(codes.Unimplemented, "method MarketDataServerSideStream not implemented")
 }
 func (UnimplementedMarketDataStreamServiceServer) mustEmbedUnimplementedMarketDataStreamServiceServer() {
@@ -443,7 +565,10 @@ func _MarketDataStreamService_MarketDataServerSideStream_Handler(srv interface{}
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(MarketDataStreamServiceServer).MarketDataServerSideStream(m, &marketDataStreamServiceMarketDataServerSideStreamServer{stream})
+	return srv.(MarketDataStreamServiceServer).MarketDataServerSideStream(
+		m,
+		&marketDataStreamServiceMarketDataServerSideStreamServer{stream},
+	)
 }
 
 type MarketDataStreamService_MarketDataServerSideStreamServer interface {

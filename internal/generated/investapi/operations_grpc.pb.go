@@ -7,10 +7,11 @@
 package investapi
 
 import (
-	context "context"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
+	"context"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -30,14 +31,28 @@ type OperationsServiceClient interface {
 	// Метод получения списка позиций по счёту.
 	GetPositions(ctx context.Context, in *PositionsRequest, opts ...grpc.CallOption) (*PositionsResponse, error)
 	// Метод получения доступного остатка для вывода средств.
-	GetWithdrawLimits(ctx context.Context, in *WithdrawLimitsRequest, opts ...grpc.CallOption) (*WithdrawLimitsResponse, error)
+	GetWithdrawLimits(ctx context.Context, in *WithdrawLimitsRequest, opts ...grpc.CallOption) (
+		*WithdrawLimitsResponse,
+		error,
+	)
 	// Метод получения брокерского отчёта.
-	GetBrokerReport(ctx context.Context, in *BrokerReportRequest, opts ...grpc.CallOption) (*BrokerReportResponse, error)
+	GetBrokerReport(ctx context.Context, in *BrokerReportRequest, opts ...grpc.CallOption) (
+		*BrokerReportResponse,
+		error,
+	)
 	// Метод получения отчёта "Справка о доходах за пределами РФ".
-	GetDividendsForeignIssuer(ctx context.Context, in *GetDividendsForeignIssuerRequest, opts ...grpc.CallOption) (*GetDividendsForeignIssuerResponse, error)
+	GetDividendsForeignIssuer(
+		ctx context.Context,
+		in *GetDividendsForeignIssuerRequest,
+		opts ...grpc.CallOption,
+	) (*GetDividendsForeignIssuerResponse, error)
 	// Метод получения списка операций по счёту с пагинацией. При работе с данным методом необходимо учитывать
 	// [особенности взаимодействия](/investAPI/operations_problems) с данным методом.
-	GetOperationsByCursor(ctx context.Context, in *GetOperationsByCursorRequest, opts ...grpc.CallOption) (*GetOperationsByCursorResponse, error)
+	GetOperationsByCursor(
+		ctx context.Context,
+		in *GetOperationsByCursorRequest,
+		opts ...grpc.CallOption,
+	) (*GetOperationsByCursorResponse, error)
 }
 
 type operationsServiceClient struct {
@@ -48,7 +63,11 @@ func NewOperationsServiceClient(cc grpc.ClientConnInterface) OperationsServiceCl
 	return &operationsServiceClient{cc}
 }
 
-func (c *operationsServiceClient) GetOperations(ctx context.Context, in *OperationsRequest, opts ...grpc.CallOption) (*OperationsResponse, error) {
+func (c *operationsServiceClient) GetOperations(
+	ctx context.Context,
+	in *OperationsRequest,
+	opts ...grpc.CallOption,
+) (*OperationsResponse, error) {
 	out := new(OperationsResponse)
 	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.OperationsService/GetOperations", in, out, opts...)
 	if err != nil {
@@ -57,7 +76,11 @@ func (c *operationsServiceClient) GetOperations(ctx context.Context, in *Operati
 	return out, nil
 }
 
-func (c *operationsServiceClient) GetPortfolio(ctx context.Context, in *PortfolioRequest, opts ...grpc.CallOption) (*PortfolioResponse, error) {
+func (c *operationsServiceClient) GetPortfolio(
+	ctx context.Context,
+	in *PortfolioRequest,
+	opts ...grpc.CallOption,
+) (*PortfolioResponse, error) {
 	out := new(PortfolioResponse)
 	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.OperationsService/GetPortfolio", in, out, opts...)
 	if err != nil {
@@ -66,7 +89,11 @@ func (c *operationsServiceClient) GetPortfolio(ctx context.Context, in *Portfoli
 	return out, nil
 }
 
-func (c *operationsServiceClient) GetPositions(ctx context.Context, in *PositionsRequest, opts ...grpc.CallOption) (*PositionsResponse, error) {
+func (c *operationsServiceClient) GetPositions(
+	ctx context.Context,
+	in *PositionsRequest,
+	opts ...grpc.CallOption,
+) (*PositionsResponse, error) {
 	out := new(PositionsResponse)
 	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.OperationsService/GetPositions", in, out, opts...)
 	if err != nil {
@@ -75,36 +102,76 @@ func (c *operationsServiceClient) GetPositions(ctx context.Context, in *Position
 	return out, nil
 }
 
-func (c *operationsServiceClient) GetWithdrawLimits(ctx context.Context, in *WithdrawLimitsRequest, opts ...grpc.CallOption) (*WithdrawLimitsResponse, error) {
+func (c *operationsServiceClient) GetWithdrawLimits(
+	ctx context.Context,
+	in *WithdrawLimitsRequest,
+	opts ...grpc.CallOption,
+) (*WithdrawLimitsResponse, error) {
 	out := new(WithdrawLimitsResponse)
-	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.OperationsService/GetWithdrawLimits", in, out, opts...)
+	err := c.cc.Invoke(
+		ctx,
+		"/tinkoff.public.invest.api.contract.v1.OperationsService/GetWithdrawLimits",
+		in,
+		out,
+		opts...,
+	)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *operationsServiceClient) GetBrokerReport(ctx context.Context, in *BrokerReportRequest, opts ...grpc.CallOption) (*BrokerReportResponse, error) {
+func (c *operationsServiceClient) GetBrokerReport(
+	ctx context.Context,
+	in *BrokerReportRequest,
+	opts ...grpc.CallOption,
+) (*BrokerReportResponse, error) {
 	out := new(BrokerReportResponse)
-	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.OperationsService/GetBrokerReport", in, out, opts...)
+	err := c.cc.Invoke(
+		ctx,
+		"/tinkoff.public.invest.api.contract.v1.OperationsService/GetBrokerReport",
+		in,
+		out,
+		opts...,
+	)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *operationsServiceClient) GetDividendsForeignIssuer(ctx context.Context, in *GetDividendsForeignIssuerRequest, opts ...grpc.CallOption) (*GetDividendsForeignIssuerResponse, error) {
+func (c *operationsServiceClient) GetDividendsForeignIssuer(
+	ctx context.Context,
+	in *GetDividendsForeignIssuerRequest,
+	opts ...grpc.CallOption,
+) (*GetDividendsForeignIssuerResponse, error) {
 	out := new(GetDividendsForeignIssuerResponse)
-	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.OperationsService/GetDividendsForeignIssuer", in, out, opts...)
+	err := c.cc.Invoke(
+		ctx,
+		"/tinkoff.public.invest.api.contract.v1.OperationsService/GetDividendsForeignIssuer",
+		in,
+		out,
+		opts...,
+	)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *operationsServiceClient) GetOperationsByCursor(ctx context.Context, in *GetOperationsByCursorRequest, opts ...grpc.CallOption) (*GetOperationsByCursorResponse, error) {
+func (c *operationsServiceClient) GetOperationsByCursor(
+	ctx context.Context,
+	in *GetOperationsByCursorRequest,
+	opts ...grpc.CallOption,
+) (*GetOperationsByCursorResponse, error) {
 	out := new(GetOperationsByCursorResponse)
-	err := c.cc.Invoke(ctx, "/tinkoff.public.invest.api.contract.v1.OperationsService/GetOperationsByCursor", in, out, opts...)
+	err := c.cc.Invoke(
+		ctx,
+		"/tinkoff.public.invest.api.contract.v1.OperationsService/GetOperationsByCursor",
+		in,
+		out,
+		opts...,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -127,7 +194,10 @@ type OperationsServiceServer interface {
 	// Метод получения брокерского отчёта.
 	GetBrokerReport(context.Context, *BrokerReportRequest) (*BrokerReportResponse, error)
 	// Метод получения отчёта "Справка о доходах за пределами РФ".
-	GetDividendsForeignIssuer(context.Context, *GetDividendsForeignIssuerRequest) (*GetDividendsForeignIssuerResponse, error)
+	GetDividendsForeignIssuer(context.Context, *GetDividendsForeignIssuerRequest) (
+		*GetDividendsForeignIssuerResponse,
+		error,
+	)
 	// Метод получения списка операций по счёту с пагинацией. При работе с данным методом необходимо учитывать
 	// [особенности взаимодействия](/investAPI/operations_problems) с данным методом.
 	GetOperationsByCursor(context.Context, *GetOperationsByCursorRequest) (*GetOperationsByCursorResponse, error)
@@ -138,25 +208,46 @@ type OperationsServiceServer interface {
 type UnimplementedOperationsServiceServer struct {
 }
 
-func (UnimplementedOperationsServiceServer) GetOperations(context.Context, *OperationsRequest) (*OperationsResponse, error) {
+func (UnimplementedOperationsServiceServer) GetOperations(context.Context, *OperationsRequest) (
+	*OperationsResponse,
+	error,
+) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOperations not implemented")
 }
-func (UnimplementedOperationsServiceServer) GetPortfolio(context.Context, *PortfolioRequest) (*PortfolioResponse, error) {
+func (UnimplementedOperationsServiceServer) GetPortfolio(context.Context, *PortfolioRequest) (
+	*PortfolioResponse,
+	error,
+) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPortfolio not implemented")
 }
-func (UnimplementedOperationsServiceServer) GetPositions(context.Context, *PositionsRequest) (*PositionsResponse, error) {
+func (UnimplementedOperationsServiceServer) GetPositions(context.Context, *PositionsRequest) (
+	*PositionsResponse,
+	error,
+) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPositions not implemented")
 }
-func (UnimplementedOperationsServiceServer) GetWithdrawLimits(context.Context, *WithdrawLimitsRequest) (*WithdrawLimitsResponse, error) {
+func (UnimplementedOperationsServiceServer) GetWithdrawLimits(
+	context.Context,
+	*WithdrawLimitsRequest,
+) (*WithdrawLimitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWithdrawLimits not implemented")
 }
-func (UnimplementedOperationsServiceServer) GetBrokerReport(context.Context, *BrokerReportRequest) (*BrokerReportResponse, error) {
+func (UnimplementedOperationsServiceServer) GetBrokerReport(
+	context.Context,
+	*BrokerReportRequest,
+) (*BrokerReportResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBrokerReport not implemented")
 }
-func (UnimplementedOperationsServiceServer) GetDividendsForeignIssuer(context.Context, *GetDividendsForeignIssuerRequest) (*GetDividendsForeignIssuerResponse, error) {
+func (UnimplementedOperationsServiceServer) GetDividendsForeignIssuer(
+	context.Context,
+	*GetDividendsForeignIssuerRequest,
+) (*GetDividendsForeignIssuerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDividendsForeignIssuer not implemented")
 }
-func (UnimplementedOperationsServiceServer) GetOperationsByCursor(context.Context, *GetOperationsByCursorRequest) (*GetOperationsByCursorResponse, error) {
+func (UnimplementedOperationsServiceServer) GetOperationsByCursor(
+	context.Context,
+	*GetOperationsByCursorRequest,
+) (*GetOperationsByCursorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOperationsByCursor not implemented")
 }
 func (UnimplementedOperationsServiceServer) mustEmbedUnimplementedOperationsServiceServer() {}
@@ -172,7 +263,12 @@ func RegisterOperationsServiceServer(s grpc.ServiceRegistrar, srv OperationsServ
 	s.RegisterService(&OperationsService_ServiceDesc, srv)
 }
 
-func _OperationsService_GetOperations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OperationsService_GetOperations_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(OperationsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -190,7 +286,12 @@ func _OperationsService_GetOperations_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OperationsService_GetPortfolio_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OperationsService_GetPortfolio_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(PortfolioRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -208,7 +309,12 @@ func _OperationsService_GetPortfolio_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OperationsService_GetPositions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OperationsService_GetPositions_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(PositionsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -226,7 +332,12 @@ func _OperationsService_GetPositions_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OperationsService_GetWithdrawLimits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OperationsService_GetWithdrawLimits_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(WithdrawLimitsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -244,7 +355,12 @@ func _OperationsService_GetWithdrawLimits_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OperationsService_GetBrokerReport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OperationsService_GetBrokerReport_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(BrokerReportRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -262,7 +378,12 @@ func _OperationsService_GetBrokerReport_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OperationsService_GetDividendsForeignIssuer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OperationsService_GetDividendsForeignIssuer_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(GetDividendsForeignIssuerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -280,7 +401,12 @@ func _OperationsService_GetDividendsForeignIssuer_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OperationsService_GetOperationsByCursor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OperationsService_GetOperationsByCursor_Handler(
+	srv interface{},
+	ctx context.Context,
+	dec func(interface{}) error,
+	interceptor grpc.UnaryServerInterceptor,
+) (interface{}, error) {
 	in := new(GetOperationsByCursorRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -343,9 +469,17 @@ var OperationsService_ServiceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OperationsStreamServiceClient interface {
 	// Server-side stream обновлений портфеля
-	PortfolioStream(ctx context.Context, in *PortfolioStreamRequest, opts ...grpc.CallOption) (OperationsStreamService_PortfolioStreamClient, error)
+	PortfolioStream(
+		ctx context.Context,
+		in *PortfolioStreamRequest,
+		opts ...grpc.CallOption,
+	) (OperationsStreamService_PortfolioStreamClient, error)
 	// Server-side stream обновлений информации по изменению позиций портфеля
-	PositionsStream(ctx context.Context, in *PositionsStreamRequest, opts ...grpc.CallOption) (OperationsStreamService_PositionsStreamClient, error)
+	PositionsStream(
+		ctx context.Context,
+		in *PositionsStreamRequest,
+		opts ...grpc.CallOption,
+	) (OperationsStreamService_PositionsStreamClient, error)
 }
 
 type operationsStreamServiceClient struct {
@@ -356,8 +490,17 @@ func NewOperationsStreamServiceClient(cc grpc.ClientConnInterface) OperationsStr
 	return &operationsStreamServiceClient{cc}
 }
 
-func (c *operationsStreamServiceClient) PortfolioStream(ctx context.Context, in *PortfolioStreamRequest, opts ...grpc.CallOption) (OperationsStreamService_PortfolioStreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &OperationsStreamService_ServiceDesc.Streams[0], "/tinkoff.public.invest.api.contract.v1.OperationsStreamService/PortfolioStream", opts...)
+func (c *operationsStreamServiceClient) PortfolioStream(
+	ctx context.Context,
+	in *PortfolioStreamRequest,
+	opts ...grpc.CallOption,
+) (OperationsStreamService_PortfolioStreamClient, error) {
+	stream, err := c.cc.NewStream(
+		ctx,
+		&OperationsStreamService_ServiceDesc.Streams[0],
+		"/tinkoff.public.invest.api.contract.v1.OperationsStreamService/PortfolioStream",
+		opts...,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -388,8 +531,17 @@ func (x *operationsStreamServicePortfolioStreamClient) Recv() (*PortfolioStreamR
 	return m, nil
 }
 
-func (c *operationsStreamServiceClient) PositionsStream(ctx context.Context, in *PositionsStreamRequest, opts ...grpc.CallOption) (OperationsStreamService_PositionsStreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &OperationsStreamService_ServiceDesc.Streams[1], "/tinkoff.public.invest.api.contract.v1.OperationsStreamService/PositionsStream", opts...)
+func (c *operationsStreamServiceClient) PositionsStream(
+	ctx context.Context,
+	in *PositionsStreamRequest,
+	opts ...grpc.CallOption,
+) (OperationsStreamService_PositionsStreamClient, error) {
+	stream, err := c.cc.NewStream(
+		ctx,
+		&OperationsStreamService_ServiceDesc.Streams[1],
+		"/tinkoff.public.invest.api.contract.v1.OperationsStreamService/PositionsStream",
+		opts...,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -435,10 +587,16 @@ type OperationsStreamServiceServer interface {
 type UnimplementedOperationsStreamServiceServer struct {
 }
 
-func (UnimplementedOperationsStreamServiceServer) PortfolioStream(*PortfolioStreamRequest, OperationsStreamService_PortfolioStreamServer) error {
+func (UnimplementedOperationsStreamServiceServer) PortfolioStream(
+	*PortfolioStreamRequest,
+	OperationsStreamService_PortfolioStreamServer,
+) error {
 	return status.Errorf(codes.Unimplemented, "method PortfolioStream not implemented")
 }
-func (UnimplementedOperationsStreamServiceServer) PositionsStream(*PositionsStreamRequest, OperationsStreamService_PositionsStreamServer) error {
+func (UnimplementedOperationsStreamServiceServer) PositionsStream(
+	*PositionsStreamRequest,
+	OperationsStreamService_PositionsStreamServer,
+) error {
 	return status.Errorf(codes.Unimplemented, "method PositionsStream not implemented")
 }
 func (UnimplementedOperationsStreamServiceServer) mustEmbedUnimplementedOperationsStreamServiceServer() {
