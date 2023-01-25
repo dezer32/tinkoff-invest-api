@@ -3,7 +3,7 @@ package helpers
 import (
 	"math"
 
-	"github.com/dezer32/tinkoff-invest-api/internal/generated/investapi"
+	"github.com/dezer32/tinkoff-invest-api/pkg/generated/investapi"
 )
 
 func ConvertQuotation(quotation *investapi.Quotation) float64 {
